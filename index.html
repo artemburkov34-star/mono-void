@@ -26,6 +26,39 @@
     --ease: cubic-bezier(.16,1,.3,1);
   }
 
+  /* ===== theme: graphite ===== */
+  body.theme-graphite{
+    --bg:#0e0e12;
+    --surface-solid:#19191f;
+  }
+
+  /* ===== theme: midnight blue ===== */
+  body.theme-midnight{
+    --bg:#080b14;
+    --surface: rgba(255,255,255,.04);
+    --surface-solid:#111827;
+    --surface-2: rgba(255,255,255,.07);
+    --border: rgba(255,255,255,.09);
+    --border-strong: rgba(255,255,255,.18);
+  }
+
+  /* ===== theme: light ===== */
+  body.theme-light{
+    --bg:#f5f5f7;
+    --surface: rgba(0,0,0,.04);
+    --surface-solid:#ffffff;
+    --surface-2: rgba(0,0,0,.06);
+    --border: rgba(0,0,0,.1);
+    --border-strong: rgba(0,0,0,.18);
+    --text:#1a1a2e;
+    --text-dim:#6b6b76;
+    --text-faint:#a0a0aa;
+  }
+  body.theme-light .search-row{ background:rgba(255,255,255,.82); }
+  body.theme-light .star{ opacity:0 !important; }
+  body.theme-light .shooting-star{ display:none; }
+  body.theme-light .aurora span{ opacity:.04 !important; }
+
   *{ box-sizing:border-box; }
   html,body{ height:100%; }
   body{
@@ -35,7 +68,6 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  /* ===== cosmic background ===== */
   .cosmos{
     position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
     background:
@@ -49,38 +81,35 @@
     position:absolute; border-radius:50%; background:#fff;
     animation:twinkle ease-in-out infinite;
   }
-  @keyframes twinkle{ 0%,100%{ opacity:var(--min-op,.2); } 50%{ opacity:var(--max-op,1); } }
+  @keyframes twinkle{ 0%,100%{ opacity:var(--min-op,.15); } 50%{ opacity:var(--max-op,.9); } }
 
   .shooting-star{
-    position:absolute; width:3px; height:3px; border-radius:50%; background:#fff;
-    filter:drop-shadow(0 0 8px #fff) drop-shadow(0 0 18px rgba(255,255,255,.7));
+    position:absolute; width:2px; height:2px; border-radius:50%; background:#fff;
+    filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 12px rgba(255,255,255,.5));
     opacity:0; animation:shoot linear infinite;
   }
   .shooting-star::before{
-    content:''; position:absolute; top:50%; right:100%; width:150px; height:1.5px;
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,.95));
+    content:''; position:absolute; top:50%; left:100%; width:110px; height:1px;
+    background:linear-gradient(90deg, rgba(255,255,255,.85), transparent);
     transform:translateY(-50%);
   }
   @keyframes shoot{
-    0%{ opacity:0; transform:rotate(60deg) translateX(0); }
-    3%{ opacity:1; }
-    12%{ opacity:1; }
-    26%{ opacity:0; transform:rotate(60deg) translateX(640px); }
-    100%{ opacity:0; transform:rotate(60deg) translateX(640px); }
+    0%{ opacity:0; transform:rotate(215deg) translateX(0); }
+    2%{ opacity:1; }
+    10%{ opacity:1; }
+    22%{ opacity:0; transform:rotate(215deg) translateX(560px); }
+    100%{ opacity:0; transform:rotate(215deg) translateX(560px); }
   }
 
-  /* geometric wireframe shapes */
-  .geo{ position:absolute; opacity:.26; }
-  .geo-1{ top:-6%; right:-6%; width:420px; height:420px; animation:spin-slow 55s linear infinite; }
-  .geo-2{ bottom:-10%; left:-8%; width:360px; height:360px; animation:spin-slow-rev 40s linear infinite; }
-  .geo-3{ top:38%; left:8%; width:200px; height:200px; animation:spin-slow 30s linear infinite; opacity:.18; }
-  .geo-4{ top:12%; left:62%; width:140px; height:140px; animation:float-y 9s ease-in-out infinite; opacity:.22; }
-  .geo-5{ top:65%; left:35%; width:110px; height:110px; animation:float-y 14s ease-in-out infinite reverse; opacity:.14; }
+  .geo{ position:absolute; opacity:.16; }
+  .geo-1{ top:-6%; right:-6%; width:420px; height:420px; animation:spin-slow 90s linear infinite; }
+  .geo-2{ bottom:-10%; left:-8%; width:360px; height:360px; animation:spin-slow-rev 70s linear infinite; }
+  .geo-3{ top:38%; left:8%; width:200px; height:200px; animation:spin-slow 50s linear infinite; opacity:.10; }
+  .geo-4{ top:12%; left:62%; width:140px; height:140px; animation:float-y 12s ease-in-out infinite; opacity:.12; }
   @keyframes spin-slow{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
   @keyframes spin-slow-rev{ from{ transform:rotate(0deg); } to{ transform:rotate(-360deg); } }
-  @keyframes float-y{ 0%,100%{ transform:translateY(0) rotate(0deg) scale(1); } 50%{ transform:translateY(-34px) rotate(24deg) scale(1.08); } }
+  @keyframes float-y{ 0%,100%{ transform:translateY(0) rotate(0deg); } 50%{ transform:translateY(-22px) rotate(20deg); } }
 
-  /* orbiting satellite system */
   .orbit-system{ position:absolute; top:8%; right:10%; width:230px; height:230px; opacity:.5; }
   .orbit-system .ring{
     position:absolute; inset:0; border-radius:50%; border:1px solid rgba(124,140,255,.35);
@@ -119,9 +148,6 @@
   @media (prefers-reduced-motion: reduce){
     .star, .shooting-star, .geo, .aurora span{ animation:none !important; }
   }
-  html.force-reduced .star, html.force-reduced .shooting-star, html.force-reduced .geo, html.force-reduced .aurora span{
-    animation:none !important;
-  }
 
   /* ===== chrome ===== */
   header{
@@ -130,14 +156,26 @@
   }
   .brand{ display:flex; align-items:center; gap:10px; }
   .brand .mark{
-    width:27px; height:24px; display:flex; align-items:center; justify-content:center;
-    filter:drop-shadow(0 0 7px rgba(0,217,163,.4));
+    width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+    filter:drop-shadow(0 0 8px rgba(0,217,163,.5));
   }
   .brand .mark svg{ width:100%; height:100%; display:block; }
   .brand .word{ font-weight:700; font-size:.95rem; letter-spacing:-.02em; }
   .brand .tag{ color:var(--text-faint); font-size:.72rem; font-family:var(--mono); margin-left:2px; }
 
   .header-actions{ display:flex; align-items:center; gap:10px; }
+
+  .lang-toggle{
+    display:inline-flex; gap:2px; background:var(--surface); border:1px solid var(--border);
+    border-radius:9px; padding:3px; cursor:pointer;
+  }
+  .lang-btn{
+    border:none; background:transparent; color:var(--text-dim); cursor:pointer;
+    font-family:var(--mono); font-size:.68rem; font-weight:600;
+    padding:5px 10px; border-radius:6px; transition:all .2s var(--ease);
+  }
+  .lang-btn.active{ background:var(--surface-2); color:var(--text); }
+
   .icon-btn{
     width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;
     background:var(--surface); border:1px solid var(--border); color:var(--text-dim); cursor:pointer;
@@ -233,9 +271,7 @@
     animation:enter .5s var(--ease) forwards;
     transition:background .2s ease, border-color .2s ease, transform .2s var(--ease), box-shadow .2s ease;
   }
-  @keyframes enter{ from{ opacity:0; transform:translateY(10px) scale(.985); filter:blur(6px); } to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
-  .icon-search.scanning{ animation:iconPulse 1s ease-in-out infinite; }
-  @keyframes iconPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.18); } }
+  @keyframes enter{ to{ opacity:1; transform:translateY(0) scale(1); } }
   .card:hover{ background:rgba(255,255,255,.055); transform:translateY(-2px); box-shadow:0 12px 30px -14px rgba(0,0,0,.5); }
   .card.sel{ background:rgba(255,255,255,.055); border-color:var(--border-strong); }
   .icon-chip{
@@ -287,41 +323,27 @@
     opacity:0; pointer-events:none; transition:opacity .25s var(--ease);
   }
   .modal-overlay.open{ opacity:1; pointer-events:auto; }
-
   .modal{
-    width:min(640px, 92vw); max-height:82vh;
-    background:var(--surface-solid); border:1px solid var(--border-strong); border-radius:20px;
-    padding:0; box-shadow:0 40px 100px -24px rgba(0,0,0,.75);
+    width:min(460px, 90vw); max-height:82vh; overflow-y:auto;
+    background:var(--surface-solid); border:1px solid var(--border-strong); border-radius:18px;
+    padding:22px 22px 24px; box-shadow:0 40px 100px -24px rgba(0,0,0,.75);
     transform:scale(.95) translateY(10px); opacity:0; transition:transform .3s var(--ease), opacity .3s var(--ease);
-    display:flex; flex-direction:column; overflow:hidden;
   }
   .modal-overlay.open .modal{ transform:scale(1) translateY(0); opacity:1; }
+  .modal::-webkit-scrollbar{ width:5px; }
+  .modal::-webkit-scrollbar-thumb{ background:var(--border-strong); border-radius:3px; }
 
-  .modal-head{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:18px 22px; border-bottom:1px solid var(--border); flex:none;
-  }
+  .modal-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
   .modal-title{ font-weight:700; font-size:1rem; letter-spacing:-.01em; }
 
-  .modal-body-wrap{ display:flex; flex:1; min-height:0; }
-  .modal-sidebar{
-    width:180px; flex:none; border-right:1px solid var(--border);
-    padding:12px 10px; display:flex; flex-direction:column; gap:2px; overflow-y:auto;
-  }
+  .modal-tabs{ display:flex; gap:20px; border-bottom:1px solid var(--border); margin-bottom:20px; }
   .modal-tab{
-    display:flex; align-items:center; gap:10px; width:100%; text-align:left;
-    background:transparent; border:none; cursor:pointer; border-radius:9px;
+    position:relative; background:transparent; border:none; cursor:pointer;
     font-family:var(--sans); font-size:.82rem; font-weight:500; color:var(--text-dim);
-    padding:9px 10px; transition:all .2s var(--ease);
+    padding:0 0 11px; transition:color .2s;
   }
-  .modal-tab svg{ flex:none; opacity:.75; transition:opacity .2s, color .2s; }
-  .modal-tab:hover{ background:var(--surface-2); color:var(--text); }
-  .modal-tab.active{ background:var(--accent-soft); color:var(--text); }
-  .modal-tab.active svg{ opacity:1; color:var(--accent); }
-
-  .modal-content{ flex:1; min-width:0; padding:20px 22px; overflow-y:auto; }
-  .modal-content::-webkit-scrollbar, .modal-sidebar::-webkit-scrollbar{ width:5px; }
-  .modal-content::-webkit-scrollbar-thumb, .modal-sidebar::-webkit-scrollbar-thumb{ background:var(--border-strong); border-radius:3px; }
+  .modal-tab.active{ color:var(--text); }
+  .modal-tab.active::after{ content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--accent); border-radius:2px; }
 
   .tab-pane{ display:none; }
   .tab-pane.active{ display:block; animation:enter .35s var(--ease); }
@@ -329,13 +351,27 @@
   .setting-group{ margin-bottom:22px; }
   .setting-group:last-child{ margin-bottom:0; }
   .setting-label{ font-size:.7rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; font-family:var(--mono); }
-  .setting-hint{ font-size:.74rem; color:var(--text-faint); margin-top:8px; line-height:1.5; }
   .swatches{ display:flex; gap:11px; }
   .swatch{
     width:28px; height:28px; border-radius:50%; border:2px solid transparent; cursor:pointer;
     transition:all .2s var(--ease); position:relative;
   }
   .swatch.active{ border-color:#fff; transform:scale(1.12); box-shadow:0 0 0 3px rgba(255,255,255,.12); }
+
+  .theme-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .theme-card{
+    border:1px solid var(--border); border-radius:12px; padding:14px; cursor:pointer;
+    transition:all .2s var(--ease); background:var(--surface);
+  }
+  .theme-card.active{ border-color:var(--accent); box-shadow:0 0 0 1px var(--accent-soft); }
+  .theme-card:hover{ transform:translateY(-1px); }
+  .theme-preview{
+    width:100%; height:48px; border-radius:8px; margin-bottom:8px; position:relative; overflow:hidden;
+  }
+  .theme-preview .tp-bg{ position:absolute; inset:0; border-radius:8px; }
+  .theme-preview .tp-bar{ position:absolute; top:6px; left:6px; right:6px; height:10px; border-radius:5px; opacity:.7; }
+  .theme-preview .tp-dot{ position:absolute; bottom:6px; left:6px; width:8px; height:8px; border-radius:50%; }
+  .theme-card-name{ font-size:.76rem; font-weight:600; }
 
   .segmented-mini{
     display:inline-flex; gap:2px; background:rgba(255,255,255,.03); border:1px solid var(--border);
@@ -346,157 +382,6 @@
     font-family:var(--sans); font-size:.78rem; padding:7px 13px; border-radius:7px; transition:all .2s var(--ease);
   }
   .mini-item.active{ background:var(--surface-2); color:var(--text); border-color:var(--border-strong); }
-
-  .provider-row{
-    display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border);
-  }
-  .provider-row:last-child{ border-bottom:none; }
-  .provider-icon{
-    flex:none; width:36px; height:36px; border-radius:10px; background:var(--surface-2);
-    display:flex; align-items:center; justify-content:center; color:var(--text);
-  }
-  .provider-info{ flex:1; min-width:0; }
-  .provider-name{ font-size:.86rem; font-weight:600; }
-  .provider-status{ font-size:.72rem; color:var(--text-dim); margin-top:1px; }
-  .provider-status.connected{ color:var(--accent); }
-  .provider-btn{
-    flex:none; font-size:.76rem; font-weight:600; padding:7px 13px; border-radius:8px; cursor:pointer;
-    border:1px solid var(--border-strong); background:var(--surface-2); color:var(--text); transition:all .2s var(--ease);
-  }
-  .provider-btn:hover{ background:rgba(255,255,255,.08); }
-  .provider-btn.danger:hover{ border-color:#ff5c6a; color:#ff5c6a; }
-
-  /* ===== integrations tab ===== */
-  .ai-integrate-btn{
-    width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
-    padding:14px; border-radius:13px; border:1px solid var(--accent-soft); cursor:pointer;
-    background:linear-gradient(135deg, rgba(0,217,163,.16), rgba(124,140,255,.16));
-    color:var(--text); font-family:var(--sans); font-weight:700; font-size:.9rem;
-    position:relative; overflow:hidden; transition:transform .2s var(--ease), box-shadow .3s ease;
-  }
-  .ai-integrate-btn::before{
-    content:''; position:absolute; inset:-40%; pointer-events:none;
-    background:conic-gradient(from 0deg, transparent, var(--accent), transparent 30%);
-    opacity:0; transition:opacity .3s ease; animation:spin-slow 3s linear infinite;
-  }
-  .ai-integrate-btn:hover{ transform:translateY(-1px); box-shadow:0 0 40px -6px rgba(0,217,163,.5), 0 0 80px -20px rgba(124,140,255,.4); }
-  .ai-integrate-btn:hover::before{ opacity:.5; }
-  .ai-integrate-btn svg{ position:relative; z-index:1; color:var(--accent); }
-  .ai-integrate-btn span{ position:relative; z-index:1; }
-  .ai-integrate-btn.scanning{ pointer-events:none; opacity:.85; }
-  .ai-integrate-btn.scanning svg{ animation:spinnerRot 1.2s linear infinite; }
-
-  .scan-log{
-    margin-top:10px; font-family:var(--mono); font-size:.72rem; color:var(--accent);
-    background:rgba(0,217,163,.05); border:1px solid var(--accent-soft); border-radius:10px;
-    padding:0; max-height:0; overflow:hidden; opacity:0;
-    transition:max-height .3s var(--ease), padding .3s var(--ease), opacity .3s ease;
-  }
-  .scan-log.open{ max-height:140px; padding:10px 12px; opacity:1; overflow-y:auto; }
-  .scan-log div{ line-height:1.7; opacity:0; animation:enter .35s var(--ease) forwards; }
-
-  .integration-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-top:12px; }
-  .integration-card{
-    display:flex; align-items:center; gap:10px; padding:11px 12px; border-radius:12px;
-    background:var(--surface); border:1px solid var(--border); cursor:pointer;
-    transition:all .2s var(--ease);
-  }
-  .integration-card:hover{ border-color:var(--border-strong); background:var(--surface-2); transform:translateY(-1px); }
-  .integration-icon{
-    flex:none; width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center;
-  }
-  .integration-info{ min-width:0; }
-  .integration-name{ font-size:.82rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .integration-status{ font-size:.68rem; color:var(--text-dim); margin-top:1px; }
-  .integration-status.connected{ color:var(--accent); }
-  .integration-card.connected{ border-color:var(--accent-soft); }
-  .integration-card .integration-dot{
-    flex:none; width:6px; height:6px; border-radius:50%; background:var(--text-faint); margin-left:auto;
-  }
-  .integration-card.connected .integration-dot{ background:var(--accent); box-shadow:0 0 8px var(--accent); }
-
-  /* ===== usage statistics ===== */
-  .usage-row{ margin-bottom:14px; }
-  .usage-top{
-    display:flex; align-items:center; justify-content:space-between; margin-bottom:7px;
-    font-size:.8rem; color:var(--text-dim);
-  }
-  .usage-top .usage-num{ font-family:var(--mono); font-size:.72rem; color:var(--text); }
-  .usage-bar{
-    height:6px; border-radius:6px; background:rgba(255,255,255,.06); overflow:hidden;
-    border:1px solid var(--border);
-  }
-  .usage-fill{
-    height:100%; border-radius:6px; background:linear-gradient(90deg, var(--accent), var(--accent-2));
-    box-shadow:0 0 10px rgba(0,217,163,.4); transition:width .6s var(--ease);
-  }
-  .week-chart{
-    display:flex; align-items:flex-end; gap:7px; height:64px; margin-top:18px;
-    padding:10px 4px 0; border-top:1px solid var(--border);
-  }
-  .week-bar{ flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; }
-  .week-bar-fill{
-    width:100%; border-radius:4px 4px 2px 2px; background:var(--surface-2);
-    background-image:linear-gradient(180deg, var(--accent-2), var(--accent));
-    opacity:.85; transition:height .5s var(--ease); animation:enter .5s var(--ease) forwards;
-  }
-  .week-bar-label{ font-size:.6rem; color:var(--text-faint); font-family:var(--mono); text-transform:uppercase; }
-
-  /* ===== billing history ===== */
-  .billing-table{ width:100%; border-collapse:collapse; font-size:.78rem; }
-  .billing-table th{
-    text-align:left; font-size:.66rem; color:var(--text-faint); text-transform:uppercase;
-    letter-spacing:.6px; font-family:var(--mono); font-weight:500; padding:0 0 9px; border-bottom:1px solid var(--border);
-  }
-  .billing-table td{ padding:11px 0; border-bottom:1px solid var(--border); color:var(--text-dim); }
-  .billing-table tr:last-child td{ border-bottom:none; }
-  .billing-table td:first-child{ color:var(--text); }
-  .billing-status{
-    font-size:.66rem; padding:3px 9px; border-radius:20px; font-family:var(--mono);
-    background:var(--accent-soft); color:var(--accent); text-transform:uppercase; letter-spacing:.4px;
-  }
-  .billing-empty{
-    display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center;
-    padding:30px 10px; color:var(--text-faint);
-  }
-  .billing-empty svg{ opacity:.5; margin-bottom:2px; }
-  .billing-empty .t1{ font-size:.82rem; color:var(--text-dim); font-weight:600; }
-  .billing-empty .t2{ font-size:.74rem; line-height:1.5; max-width:260px; }
-
-  /* ===== recent activity widget ===== */
-  .activity-widget{
-    position:fixed; right:22px; bottom:22px; z-index:30; width:290px;
-    background:rgba(15,15,19,.68); border:1px solid var(--border); border-radius:14px;
-    backdrop-filter:blur(18px) saturate(140%); box-shadow:0 30px 70px -24px rgba(0,0,0,.6);
-    transition:transform .3s var(--ease), opacity .3s var(--ease);
-  }
-  .activity-widget.hidden{ transform:translateY(14px) scale(.96); opacity:0; pointer-events:none; }
-  .activity-head{
-    display:flex; align-items:center; justify-content:space-between; padding:10px 13px;
-    border-bottom:1px solid var(--border); font-family:var(--mono); font-size:.68rem;
-    color:var(--text-dim); text-transform:uppercase; letter-spacing:1px;
-  }
-  .activity-collapse{
-    background:transparent; border:none; color:var(--text-dim); cursor:pointer; padding:2px;
-    display:flex; transition:color .2s ease;
-  }
-  .activity-collapse:hover{ color:var(--text); }
-  .activity-log{ max-height:150px; overflow-y:auto; padding:8px 13px 10px; display:flex; flex-direction:column; gap:7px; }
-  .activity-log::-webkit-scrollbar{ width:4px; }
-  .activity-log::-webkit-scrollbar-thumb{ background:var(--border-strong); border-radius:3px; }
-  .activity-item{
-    font-family:var(--mono); font-size:.7rem; line-height:1.5; color:var(--text-dim);
-    opacity:0; animation:enter .4s var(--ease) forwards; display:flex; gap:7px;
-  }
-  .activity-item .t{ color:var(--text-faint); flex:none; }
-  .activity-item .a{ color:var(--accent); }
-
-  .activity-dot{
-    position:fixed; right:26px; bottom:26px; z-index:30; width:14px; height:14px; border-radius:50%;
-    background:var(--accent); border:none; cursor:pointer; box-shadow:0 0 12px var(--accent), 0 0 24px rgba(0,217,163,.5);
-    transform:scale(0); opacity:0; transition:all .3s var(--ease); animation:breathe 2.4s ease-in-out infinite;
-  }
-  .activity-dot.show{ transform:scale(1); opacity:1; }
 
   .account-row{ display:flex; align-items:center; gap:14px; margin-bottom:20px; }
   .avatar{
@@ -532,6 +417,12 @@
     font-weight:600; font-size:.86rem; font-family:var(--sans); transition:all .2s var(--ease);
   }
   .btn-secondary:hover{ border-color:var(--accent-soft); background:var(--surface-2); transform:translateY(-1px); }
+  .btn-danger{
+    margin-top:8px; width:100%; padding:11px; border-radius:10px; cursor:pointer;
+    background:transparent; color:#ff5c5c; border:1px solid rgba(255,92,92,.25);
+    font-weight:600; font-size:.86rem; font-family:var(--sans); transition:all .2s var(--ease);
+  }
+  .btn-danger:hover{ background:rgba(255,92,92,.08); border-color:rgba(255,92,92,.4); transform:translateY(-1px); }
 
   .plan-card{ border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:12px; background:var(--surface); }
   .plan-card.highlight{ border-color:var(--accent-soft); box-shadow:0 0 0 1px var(--accent-soft), 0 16px 34px -20px rgba(0,217,163,.35); }
@@ -556,138 +447,9 @@
     transition:all .3s var(--ease);
   }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-  .toggle-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0; border-bottom:1px solid var(--border); }
-  .toggle-row:last-child{ border-bottom:none; }
-  .toggle-title{ font-size:.85rem; font-weight:600; color:var(--text); }
-  .toggle-sub{ font-size:.74rem; color:var(--text-dim); margin-top:2px; line-height:1.4; }
-  .toggle{
-    flex:none; width:38px; height:22px; border-radius:20px; border:1px solid var(--border-strong);
-    background:var(--surface-2); position:relative; cursor:pointer; transition:background .2s ease, border-color .2s ease;
-  }
-  .toggle span{
-    position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:var(--text-dim);
-    transition:transform .25s var(--ease), background .2s ease;
-  }
-  .toggle.on{ background:var(--accent-soft); border-color:var(--accent); }
-  .toggle.on span{ transform:translateX(16px); background:var(--accent); box-shadow:0 0 8px var(--accent); }
-
-  .shortcut-row{
-    display:flex; align-items:center; justify-content:space-between; padding:11px 0;
-    border-bottom:1px solid var(--border); font-size:.84rem; color:var(--text-dim);
-  }
-  .shortcut-row:last-child{ border-bottom:none; }
-
-  /* chalk-like wobble on shooting star trail */
-  .shooting-star::before{ filter:url(#chalkWobble); }
-
-  /* animated shimmer border on card hover, like a light sweeping the glass edge */
-  .card{ position:relative; overflow:hidden; }
-  .card::before{
-    content:''; position:absolute; inset:0; border-radius:12px; padding:1px; pointer-events:none;
-    background:conic-gradient(from var(--angle), transparent 0%, var(--accent) 8%, transparent 22%);
-    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite:xor; mask-composite:exclude;
-    opacity:0; transition:opacity .3s ease; animation:spin 2.4s linear infinite; animation-play-state:paused;
-  }
-  .card:hover::before{ opacity:.55; animation-play-state:running; }
-
-  /* ===== login gate ===== */
-  .login-gate{
-    position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
-    background:rgba(0,0,0,.78); backdrop-filter:blur(16px);
-    transition:opacity .5s var(--ease), visibility .5s var(--ease);
-  }
-  .login-gate.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
-  .login-card{
-    width:min(360px, 88vw); background:var(--surface-solid); border:1px solid var(--border-strong);
-    border-radius:20px; padding:34px 28px 26px; text-align:center;
-    box-shadow:0 50px 120px -24px rgba(0,0,0,.85); animation:enter .5s var(--ease);
-  }
-  .login-mark{ width:56px; height:50px; margin:0 auto 18px; filter:drop-shadow(0 0 10px rgba(0,217,163,.45)); }
-  .login-mark svg{ width:100%; height:100%; display:block; }
-  .login-title{ font-weight:800; font-size:1.35rem; letter-spacing:-.02em; margin-bottom:6px; }
-  .login-sub{ font-size:.82rem; color:var(--text-dim); margin-bottom:26px; line-height:1.5; }
-
-  .google-btn{
-    width:100%; display:flex; align-items:center; justify-content:center; gap:10px;
-    background:#fff; color:#1f1f1f; border:none; border-radius:11px; padding:12px;
-    font-weight:600; font-size:.88rem; font-family:var(--sans); cursor:pointer; margin-bottom:10px;
-    transition:transform .2s var(--ease), box-shadow .2s ease;
-  }
-  .google-btn:hover{ transform:translateY(-1px); box-shadow:0 14px 30px -12px rgba(255,255,255,.3); }
-  .google-btn .spinner{ display:none; width:16px; height:16px; border-radius:50%; border:2px solid rgba(0,0,0,.15); border-top-color:#1f1f1f; animation:spinnerRot .8s linear infinite; }
-  .google-btn.loading{ pointer-events:none; }
-  .google-btn.loading .g-icon, .google-btn.loading .g-label{ display:none; }
-  .google-btn.loading .spinner{ display:block; }
-  @keyframes spinnerRot{ to{ transform:rotate(360deg); } }
-
-  .oauth-btn{
-    width:100%; display:flex; align-items:center; gap:10px; background:var(--surface-2);
-    color:var(--text); border:1px solid var(--border); border-radius:11px; padding:11px 14px;
-    font-size:.84rem; font-family:var(--sans); font-weight:500; margin-bottom:8px; cursor:pointer;
-    transition:all .2s var(--ease);
-  }
-  .oauth-btn:hover{ border-color:var(--border-strong); background:rgba(255,255,255,.08); transform:translateY(-1px); }
-  .oauth-btn.loading{ pointer-events:none; }
-  .oauth-btn.loading .ob-icon, .oauth-btn.loading .ob-label{ opacity:.35; }
-  .oauth-btn .spinner-mini{
-    display:none; width:14px; height:14px; margin-left:auto; border-radius:50%;
-    border:2px solid var(--border-strong); border-top-color:var(--accent); animation:spinnerRot .8s linear infinite;
-  }
-  .oauth-btn.loading .spinner-mini{ display:block; }
-  .login-terms{ margin-top:18px; font-size:.66rem; color:var(--text-faint); line-height:1.5; }
 </style>
 </head>
 <body>
-  <svg width="0" height="0" style="position:absolute">
-    <filter id="chalkWobble">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="7" result="noise"/>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2"/>
-    </filter>
-  </svg>
-
-  <div class="login-gate" id="loginGate">
-    <div class="login-card">
-      <div class="login-mark">
-        <svg viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="8,12 56,55 8,58" fill="#1d1d24"/>
-          <polygon points="8,58 56,55 34,100" fill="#0f0f13"/>
-          <polygon points="112,12 64,55 112,58" fill="#22232c"/>
-          <polygon points="112,58 64,55 86,100" fill="#131317"/>
-          <g stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
-            <path d="M8,12 L56,55 L34,100"/>
-            <path d="M112,12 L64,55 L86,100"/>
-          </g>
-        </svg>
-      </div>
-      <div class="login-title">Mono</div>
-      <div class="login-sub">Войдите, чтобы искать всё в одном месте</div>
-
-      <button class="google-btn" id="googleBtn">
-        <svg class="g-icon" width="18" height="18" viewBox="0 0 18 18">
-          <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84c-.21 1.13-.85 2.09-1.81 2.73v2.27h2.92c1.71-1.57 2.69-3.89 2.69-6.64z"/>
-          <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.27c-.81.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.34C2.44 15.98 5.48 18 9 18z"/>
-          <path fill="#FBBC05" d="M3.97 10.71a5.4 5.4 0 0 1 0-3.42V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.34z"/>
-          <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.95l3.01 2.34C4.68 5.16 6.66 3.58 9 3.58z"/>
-        </svg>
-        <span class="g-label">Войти через Google</span>
-        <span class="spinner"></span>
-      </button>
-      <button class="oauth-btn" id="githubBtn" data-provider="GitHub">
-        <svg class="ob-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.7-1.4-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.3-3.2-.1-.3-.6-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.9.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.7 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg>
-        <span class="ob-label">Войти через GitHub</span>
-        <span class="spinner-mini"></span>
-      </button>
-      <button class="oauth-btn" id="telegramBtn" data-provider="Telegram">
-        <svg class="ob-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.7 8.2-2 9.4c-.1.7-.5.8-1 .5l-2.8-2-1.4 1.3c-.1.2-.3.3-.6.3l.2-3.1 5.6-5c.2-.2-.1-.3-.4-.1L8 13.1l-3-1c-.7-.2-.7-.7.1-1l11.7-4.5c.6-.2 1.1.1.9 1z"/></svg>
-        <span class="ob-label">Войти через Telegram</span>
-        <span class="spinner-mini"></span>
-      </button>
-
-      <div class="login-terms">Продолжая, вы соглашаетесь с условиями использования и политикой конфиденциальности</div>
-    </div>
-  </div>
-
   <div class="cosmos">
     <div class="layer" id="layerBack">
       <div class="aurora"><span></span><span></span><span></span></div>
@@ -698,7 +460,6 @@
       <div class="stars" id="starsLayer"></div>
       <svg class="geo geo-3" viewBox="0 0 100 100"><polygon points="50,6 94,94 6,94" fill="none" stroke="var(--accent-2)" stroke-width="0.6"/></svg>
       <svg class="geo geo-4" viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" fill="none" stroke="var(--accent)" stroke-width="0.7" transform="rotate(15 50 50)"/></svg>
-      <svg class="geo geo-5" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="var(--accent-2)" stroke-width="0.8"/><circle cx="50" cy="63" r="14" fill="none" stroke="var(--accent)" stroke-width="0.6"/></svg>
       <div class="orbit-system">
         <div class="ring"></div>
         <div class="ring-2"></div>
@@ -716,27 +477,43 @@
   <header>
     <div class="brand">
       <div class="mark">
-        <svg viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <filter id="markGlow" x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="2.4" result="b"/>
+            <linearGradient id="logoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="var(--accent)"/>
+              <stop offset="100%" stop-color="var(--accent-2)"/>
+            </linearGradient>
+            <filter id="logoGlow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="2" result="b"/>
               <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
-          <polygon points="8,12 56,55 8,58" fill="#1d1d24"/>
-          <polygon points="8,58 56,55 34,100" fill="#0f0f13"/>
-          <polygon points="112,12 64,55 112,58" fill="#22232c"/>
-          <polygon points="112,58 64,55 86,100" fill="#131317"/>
-          <g filter="url(#markGlow)" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-            <path d="M8,12 L56,55 L34,100"/>
-            <path d="M112,12 L64,55 L86,100"/>
-          </g>
+          <circle cx="50" cy="50" r="44" fill="none" stroke="url(#logoGrad1)" stroke-width="2.5" filter="url(#logoGlow)"/>
+          <circle cx="50" cy="50" r="44" fill="none" stroke="url(#logoGrad1)" stroke-width="2.5" stroke-dasharray="12 6" opacity=".4">
+            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="30s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="50" cy="50" r="32" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".2" stroke-dasharray="4 8">
+            <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="20s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="50" cy="50" r="4" fill="var(--accent)" filter="url(#logoGlow)">
+            <animate attributeName="r" values="4;5.5;4" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="50" cy="28" r="2.5" fill="var(--accent-2)" filter="url(#logoGlow)">
+            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="8s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="72" cy="50" r="2" fill="#ff5c8a" opacity=".8" filter="url(#logoGlow)">
+            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="12s" repeatCount="indefinite"/>
+          </circle>
         </svg>
       </div>
       <span class="word">Mono</span>
       <span class="tag">search everything</span>
     </div>
     <div class="header-actions">
+      <div class="lang-toggle" id="langToggle">
+        <button class="lang-btn active" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
       <button class="icon-btn" id="settingsBtn" aria-label="Настройки">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       </button>
@@ -763,70 +540,29 @@
   </main>
 
   <footer>
-    <span>индекс: <b id="totalCount">0</b> объектов</span>
-    <span><b>⌘K</b> для быстрого доступа</span>
+    <span data-i18n="footer_index">индекс: <b id="totalCount">0</b> объектов</span>
+    <span data-i18n="footer_shortcut"><b>⌘K</b> для быстрого доступа</span>
   </footer>
-
-  <div class="activity-widget" id="activityWidget">
-    <div class="activity-head">
-      <span>Recent Activity</span>
-      <button class="activity-collapse" id="activityCollapse" aria-label="Свернуть">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
-    </div>
-    <div class="activity-log" id="activityLog"></div>
-  </div>
-  <button class="activity-dot" id="activityDot" aria-label="Развернуть Recent Activity"></button>
 
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal" id="settingsModal" role="dialog" aria-modal="true">
       <div class="modal-head">
-        <span class="modal-title">Настройки</span>
+        <span class="modal-title" data-i18n="settings">Настройки</span>
         <button class="icon-btn small" id="modalClose" aria-label="Закрыть">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
       </div>
 
-      <div class="modal-body-wrap">
-        <div class="modal-sidebar">
-          <button class="modal-tab active" data-tab="appearance">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20c1.4 0 2-.9 2-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.7-1.6 1.6-1.6H16a4.5 4.5 0 0 0 4.5-4.5C20.5 6.4 16.7 2 12 2z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/><circle cx="17.5" cy="11" r="1"/></svg>
-            Внешний вид
-          </button>
-          <button class="modal-tab" data-tab="account">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 7-7h2a7 7 0 0 1 7 7v1"/></svg>
-            Аккаунт
-          </button>
-          <button class="modal-tab" data-tab="providers">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>
-            Подключения
-          </button>
-          <button class="modal-tab" data-tab="integrations">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-            Интеграции
-          </button>
-          <button class="modal-tab" data-tab="notifications">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            Уведомления
-          </button>
-          <button class="modal-tab" data-tab="data">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
-            Данные
-          </button>
-          <button class="modal-tab" data-tab="shortcuts">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h12"/></svg>
-            Ярлыки
-          </button>
-          <button class="modal-tab" data-tab="subscription">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-            Подписка
-          </button>
-        </div>
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="appearance" data-i18n="tab_appearance">Внешний вид</button>
+        <button class="modal-tab" data-tab="account" data-i18n="tab_account">Аккаунт</button>
+        <button class="modal-tab" data-tab="subscription" data-i18n="tab_subscription">Подписка</button>
+      </div>
 
-        <div class="modal-content">
+      <!-- ===== Appearance tab ===== -->
       <div class="tab-pane active" data-pane="appearance">
         <div class="setting-group">
-          <div class="setting-label">Акцентный цвет</div>
+          <div class="setting-label" data-i18n="accent_color">Акцентный цвет</div>
           <div class="swatches">
             <button class="swatch active" data-accent="#00d9a3" data-accent2="#7c8cff" style="background:#00d9a3" aria-label="Мятный"></button>
             <button class="swatch" data-accent="#7c8cff" data-accent2="#00d9a3" style="background:#7c8cff" aria-label="Индиго"></button>
@@ -836,27 +572,52 @@
           </div>
         </div>
         <div class="setting-group">
-          <div class="setting-label">Фон</div>
-          <div class="segmented-mini">
-            <button class="mini-item active" data-bgmode="black">Чёрный космос</button>
-            <button class="mini-item" data-bgmode="graphite">Глубокий графит</button>
+          <div class="setting-label" data-i18n="theme">Тема</div>
+          <div class="theme-grid" id="themeGrid">
+            <div class="theme-card active" data-theme="">
+              <div class="theme-preview">
+                <div class="tp-bg" style="background:#000"></div>
+                <div class="tp-bar" style="background:linear-gradient(90deg,#00d9a3,#7c8cff)"></div>
+                <div class="tp-dot" style="background:#00d9a3"></div>
+              </div>
+              <div class="theme-card-name" data-i18n="theme_cosmic">Чёрный космос</div>
+            </div>
+            <div class="theme-card" data-theme="theme-graphite">
+              <div class="theme-preview">
+                <div class="tp-bg" style="background:#0e0e12"></div>
+                <div class="tp-bar" style="background:linear-gradient(90deg,#00d9a3,#7c8cff)"></div>
+                <div class="tp-dot" style="background:#00d9a3"></div>
+              </div>
+              <div class="theme-card-name" data-i18n="theme_graphite">Глубокий графит</div>
+            </div>
+            <div class="theme-card" data-theme="theme-midnight">
+              <div class="theme-preview">
+                <div class="tp-bg" style="background:#080b14"></div>
+                <div class="tp-bar" style="background:linear-gradient(90deg,#00d9a3,#7c8cff)"></div>
+                <div class="tp-dot" style="background:#00d9a3"></div>
+              </div>
+              <div class="theme-card-name" data-i18n="theme_midnight">Полночь</div>
+            </div>
+            <div class="theme-card" data-theme="theme-light">
+              <div class="theme-preview">
+                <div class="tp-bg" style="background:#f5f5f7"></div>
+                <div class="tp-bar" style="background:linear-gradient(90deg,#00d9a3,#7c8cff)"></div>
+                <div class="tp-dot" style="background:#00d9a3"></div>
+              </div>
+              <div class="theme-card-name" data-i18n="theme_light">Светлая</div>
+            </div>
           </div>
         </div>
         <div class="setting-group">
-          <div class="setting-label">Язык интерфейса</div>
-          <div class="segmented-mini">
+          <div class="setting-label" data-i18n="language">Язык</div>
+          <div class="segmented-mini" id="langSegment">
             <button class="mini-item active" data-lang="ru">Русский</button>
             <button class="mini-item" data-lang="en">English</button>
           </div>
         </div>
-        <div class="setting-group">
-          <div class="toggle-row">
-            <div><div class="toggle-title">Уменьшенная анимация</div><div class="toggle-sub">Отключить звёздный фон и лишние переходы</div></div>
-            <button class="toggle" data-toggle="reduced-motion"><span></span></button>
-          </div>
-        </div>
       </div>
 
+      <!-- ===== Account tab ===== -->
       <div class="tab-pane" data-pane="account">
         <div class="account-row">
           <div class="avatar">W</div>
@@ -866,188 +627,54 @@
           </div>
         </div>
         <div class="field">
-          <label>Имя</label>
+          <label data-i18n="field_name">Имя</label>
           <input type="text" id="accName" value="wtzzdx">
         </div>
         <div class="field">
-          <label>Email</label>
+          <label data-i18n="field_email">Email</label>
           <input type="email" id="accEmail" value="wtzzdx@mono.dev">
         </div>
-        <button class="btn-primary" id="saveAccount">Сохранить изменения</button>
-
-        <div class="setting-group" style="margin-top:24px;">
-          <div class="setting-label">Usage Statistics</div>
-          <div class="usage-row">
-            <div class="usage-top"><span>Запросы в этом месяце</span><span class="usage-num">640 / 1000</span></div>
-            <div class="usage-bar"><div class="usage-fill" style="width:64%"></div></div>
-          </div>
-          <div class="usage-row">
-            <div class="usage-top"><span>Источники данных</span><span class="usage-num">3 / 5</span></div>
-            <div class="usage-bar"><div class="usage-fill" style="width:60%"></div></div>
-          </div>
-          <div class="usage-row">
-            <div class="usage-top"><span>Хранилище индекса</span><span class="usage-num">1.2 / 5 ГБ</span></div>
-            <div class="usage-bar"><div class="usage-fill" style="width:24%"></div></div>
-          </div>
-          <div class="week-chart" id="weekChart"></div>
+        <div class="field">
+          <label data-i18n="field_password">Пароль</label>
+          <input type="password" id="accPassword" value="••••••••" placeholder="••••••••">
         </div>
-
-        <div class="setting-group">
-          <div class="field">
-            <label>User ID</label>
-            <input type="text" value="usr_8f3a1c9d2b" readonly>
-          </div>
-          <div class="field">
-            <label>Member since</label>
-            <input type="text" value="12 марта 2025" readonly>
-          </div>
-        </div>
+        <button class="btn-primary" id="saveAccount" data-i18n="btn_save">Сохранить изменения</button>
+        <button class="btn-danger" id="logoutBtn" data-i18n="btn_logout">Выйти из аккаунта</button>
       </div>
 
-      <div class="tab-pane" data-pane="providers">
-        <div class="setting-group">
-          <div class="setting-label">Способы входа</div>
-          <div class="provider-row">
-            <div class="provider-icon">
-              <svg width="16" height="16" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84c-.21 1.13-.85 2.09-1.81 2.73v2.27h2.92c1.71-1.57 2.69-3.89 2.69-6.64z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.27c-.81.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.34C2.44 15.98 5.48 18 9 18z"/><path fill="#FBBC05" d="M3.97 10.71a5.4 5.4 0 0 1 0-3.42V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.34z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.95l3.01 2.34C4.68 5.16 6.66 3.58 9 3.58z"/></svg>
-            </div>
-            <div class="provider-info">
-              <div class="provider-name">Google</div>
-              <div class="provider-status connected">Подключено · wtzzdx@gmail.com</div>
-            </div>
-            <button class="provider-btn danger">Отключить</button>
-          </div>
-          <div class="provider-row">
-            <div class="provider-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.7-1.4-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.3-3.2-.1-.3-.6-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.9.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.7 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg>
-            </div>
-            <div class="provider-info">
-              <div class="provider-name">GitHub</div>
-              <div class="provider-status">Не подключено</div>
-            </div>
-            <button class="provider-btn" data-connect="GitHub">Подключить</button>
-          </div>
-          <div class="provider-row">
-            <div class="provider-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.7 8.2-2 9.4c-.1.7-.5.8-1 .5l-2.8-2-1.4 1.3c-.1.2-.3.3-.6.3l.2-3.1 5.6-5c.2-.2-.1-.3-.4-.1L8 13.1l-3-1c-.7-.2-.7-.7.1-1l11.7-4.5c.6-.2 1.1.1.9 1z"/></svg>
-            </div>
-            <div class="provider-info">
-              <div class="provider-name">Telegram</div>
-              <div class="provider-status">Не подключено</div>
-            </div>
-            <button class="provider-btn" data-connect="Telegram">Подключить</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="tab-pane" data-pane="integrations">
-        <button class="ai-integrate-btn" id="aiIntegrateBtn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/><circle cx="12" cy="12" r="3"/></svg>
-          <span id="aiIntegrateLabel">AI Auto-Integrate</span>
-        </button>
-        <div class="scan-log" id="scanLog"></div>
-        <div class="setting-label" style="margin-top:18px;">Сервисы</div>
-        <div class="integration-grid" id="integrationGrid"></div>
-      </div>
-
-      <div class="tab-pane" data-pane="notifications">
-        <div class="setting-group">
-          <div class="toggle-row">
-            <div><div class="toggle-title">Новые результаты</div><div class="toggle-sub">Уведомлять о новых совпадениях по сохранённым запросам</div></div>
-            <button class="toggle on" data-toggle="new-results"><span></span></button>
-          </div>
-          <div class="toggle-row">
-            <div><div class="toggle-title">Системные события</div><div class="toggle-sub">Обновления индекса, диагностика, ошибки синхронизации</div></div>
-            <button class="toggle on" data-toggle="system"><span></span></button>
-          </div>
-          <div class="toggle-row">
-            <div><div class="toggle-title">Еженедельный дайджест</div><div class="toggle-sub">Сводка активности раз в неделю на почту</div></div>
-            <button class="toggle" data-toggle="digest"><span></span></button>
-          </div>
-          <div class="toggle-row">
-            <div><div class="toggle-title">Звук уведомлений</div><div class="toggle-sub">Короткий сигнал при новом совпадении</div></div>
-            <button class="toggle" data-toggle="sound"><span></span></button>
-          </div>
-        </div>
-      </div>
-
-      <div class="tab-pane" data-pane="data">
-        <div class="setting-group">
-          <div class="toggle-row">
-            <div><div class="toggle-title">Сохранять историю поиска</div><div class="toggle-sub">Запросы используются для подсказок и быстрых ссылок</div></div>
-            <button class="toggle on" data-toggle="save-history"><span></span></button>
-          </div>
-          <div class="toggle-row">
-            <div><div class="toggle-title">Участвовать в улучшении поиска</div><div class="toggle-sub">Анонимная статистика запросов помогает точнее ранжировать</div></div>
-            <button class="toggle on" data-toggle="analytics"><span></span></button>
-          </div>
-        </div>
-        <div class="setting-group">
-          <div class="setting-label">Управление данными</div>
-          <button class="btn-secondary" id="clearHistory">Очистить историю поиска</button>
-          <button class="btn-secondary" id="exportData">Экспортировать мои данные</button>
-        </div>
-      </div>
-
-      <div class="tab-pane" data-pane="shortcuts">
-        <div class="setting-group">
-          <div class="shortcut-row"><span>Фокус на поиске</span><span class="kbd">/</span></div>
-          <div class="shortcut-row"><span>Открыть настройки</span><span class="kbd">⌘ ,</span></div>
-          <div class="shortcut-row"><span>Навигация по результатам</span><span class="kbd">↑ / ↓</span></div>
-          <div class="shortcut-row"><span>Закрыть / очистить</span><span class="kbd">Esc</span></div>
-          <div class="shortcut-row"><span>Быстрый доступ</span><span class="kbd">⌘ K</span></div>
-        </div>
-      </div>
-
+      <!-- ===== Subscription tab ===== -->
       <div class="tab-pane" data-pane="subscription">
         <div class="plan-card">
           <div class="plan-head">
             <span class="plan-name">Free</span>
-            <span class="plan-badge">Текущий план</span>
+            <span class="plan-badge" data-i18n="plan_current">Текущий план</span>
           </div>
-          <div class="plan-price">0 ₽ <span>/ мес</span></div>
+          <div class="plan-price">0 ₽ <span data-i18n="per_month">/ мес</span></div>
           <ul class="plan-features">
-            <li>До 100 запросов в день</li>
-            <li>Базовые фильтры</li>
-            <li>1 источник данных</li>
+            <li data-i18n="feat_100req">До 100 запросов в день</li>
+            <li data-i18n="feat_basic">Базовые фильтры</li>
+            <li data-i18n="feat_1source">1 источник данных</li>
           </ul>
         </div>
         <div class="plan-card highlight">
           <div class="plan-head"><span class="plan-name">Pro</span></div>
-          <div class="plan-price">990 ₽ <span>/ мес</span></div>
+          <div class="plan-price">990 ₽ <span data-i18n="per_month">/ мес</span></div>
           <ul class="plan-features">
-            <li>Безлимитные запросы</li>
-            <li>Все фильтры и источники</li>
-            <li>Приоритетная индексация</li>
+            <li data-i18n="feat_unlimited">Безлимитные запросы</li>
+            <li data-i18n="feat_allfilters">Все фильтры и источники</li>
+            <li data-i18n="feat_priority">Приоритетная индексация</li>
           </ul>
-          <button class="btn-primary plan-btn" data-plan="Pro">Перейти на Pro</button>
+          <button class="btn-primary plan-btn" data-plan="Pro" data-i18n="btn_gopro">Перейти на Pro</button>
         </div>
         <div class="plan-card">
           <div class="plan-head"><span class="plan-name">Team</span></div>
-          <div class="plan-price">2 490 ₽ <span>/ мес за 5 мест</span></div>
+          <div class="plan-price">2 490 ₽ <span data-i18n="per_month_5">/ мес за 5 мест</span></div>
           <ul class="plan-features">
-            <li>Общий доступ команде</li>
-            <li>Права и роли</li>
-            <li>Персональный менеджер</li>
+            <li data-i18n="feat_team">Общий доступ команде</li>
+            <li data-i18n="feat_roles">Права и роли</li>
+            <li data-i18n="feat_manager">Персональный менеджер</li>
           </ul>
-          <button class="btn-secondary plan-btn" data-plan="Team">Перейти на Team</button>
-        </div>
-
-        <div class="setting-group" style="margin-top:26px;">
-          <div class="setting-label">Billing History</div>
-          <table class="billing-table" id="billingTable">
-            <thead>
-              <tr><th>Дата</th><th>Описание</th><th>Сумма</th><th>Статус</th></tr>
-            </thead>
-            <tbody id="billingBody"></tbody>
-          </table>
-          <div class="billing-empty" id="billingEmpty">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-            <div class="t1">Пока нет транзакций</div>
-            <div class="t2">На плане Free списаний не бывает. История платежей появится здесь после перехода на Pro или Team.</div>
-          </div>
-        </div>
-      </div>
+          <button class="btn-secondary plan-btn" data-plan="Team" data-i18n="btn_goteam">Перейти на Team</button>
         </div>
       </div>
     </div>
@@ -1056,24 +683,136 @@
   <div class="toast" id="toast"></div>
 
 <script>
-/* ---------- cosmic background generation ---------- */
+/* ===== i18n ===== */
+const I18N = {
+  ru: {
+    settings: 'Настройки',
+    tab_appearance: 'Внешний вид',
+    tab_account: 'Аккаунт',
+    tab_subscription: 'Подписка',
+    accent_color: 'Акцентный цвет',
+    theme: 'Тема',
+    theme_cosmic: 'Чёрный космос',
+    theme_graphite: 'Глубокий графит',
+    theme_midnight: 'Полночь',
+    theme_light: 'Светлая',
+    language: 'Язык',
+    field_name: 'Имя',
+    field_email: 'Email',
+    field_password: 'Пароль',
+    btn_save: 'Сохранить изменения',
+    btn_logout: 'Выйти из аккаунта',
+    plan_current: 'Текущий план',
+    per_month: '/ мес',
+    per_month_5: '/ мес за 5 мест',
+    feat_100req: 'До 100 запросов в день',
+    feat_basic: 'Базовые фильтры',
+    feat_1source: '1 источник данных',
+    feat_unlimited: 'Безлимитные запросы',
+    feat_allfilters: 'Все фильтры и источники',
+    feat_priority: 'Приоритетная индексация',
+    feat_team: 'Общий доступ команде',
+    feat_roles: 'Права и роли',
+    feat_manager: 'Персональный менеджер',
+    btn_gopro: 'Перейти на Pro',
+    btn_goteam: 'Перейти на Team',
+    footer_index: 'индекс:',
+    footer_objects: 'объектов',
+    footer_shortcut: 'для быстрого доступа',
+    placeholder: 'Найти файл, ссылку, человека или команду...',
+    hint_start: 'Начните вводить запрос',
+    hint_desc: 'Найдётся всё — файлы, ссылки, люди и команды, в одном месте.',
+    empty_title: 'Ничего не найдено',
+    empty_desc: 'Ничего не совпадает с',
+    empty_try: '. Попробуйте другой фильтр или запрос.',
+    result_single: 'результат',
+    result_few: 'результата',
+    result_many: 'результатов',
+    search: 'поиск...',
+    file: 'Файл', web: 'Веб', person: 'Человек', cmd: 'Команда',
+    saved: 'Настройки сохранены',
+    logged_out: 'Вы вышли из аккаунта',
+    switched_plan: 'Переход на',
+  },
+  en: {
+    settings: 'Settings',
+    tab_appearance: 'Appearance',
+    tab_account: 'Account',
+    tab_subscription: 'Subscription',
+    accent_color: 'Accent Color',
+    theme: 'Theme',
+    theme_cosmic: 'Dark Cosmos',
+    theme_graphite: 'Deep Graphite',
+    theme_midnight: 'Midnight',
+    theme_light: 'Light',
+    language: 'Language',
+    field_name: 'Name',
+    field_email: 'Email',
+    field_password: 'Password',
+    btn_save: 'Save changes',
+    btn_logout: 'Log out',
+    plan_current: 'Current plan',
+    per_month: '/ mo',
+    per_month_5: '/ mo for 5 seats',
+    feat_100req: 'Up to 100 queries per day',
+    feat_basic: 'Basic filters',
+    feat_1source: '1 data source',
+    feat_unlimited: 'Unlimited queries',
+    feat_allfilters: 'All filters and sources',
+    feat_priority: 'Priority indexing',
+    feat_team: 'Shared team access',
+    feat_roles: 'Roles and permissions',
+    feat_manager: 'Personal account manager',
+    btn_gopro: 'Upgrade to Pro',
+    btn_goteam: 'Upgrade to Team',
+    footer_index: 'index:',
+    footer_objects: 'objects',
+    footer_shortcut: 'for quick access',
+    placeholder: 'Find a file, link, person, or command...',
+    hint_start: 'Start typing a query',
+    hint_desc: 'Everything will be found — files, links, people and commands, in one place.',
+    empty_title: 'Nothing found',
+    empty_desc: 'Nothing matches',
+    empty_try: '. Try a different filter or query.',
+    result_single: 'result',
+    result_few: 'results',
+    result_many: 'results',
+    search: 'searching...',
+    file: 'File', web: 'Web', person: 'Person', cmd: 'Command',
+    saved: 'Settings saved',
+    logged_out: 'You have been logged out',
+    switched_plan: 'Switching to',
+  }
+};
+let currentLang = localStorage.getItem('mono_lang') || 'ru';
+function t(key){ return (I18N[currentLang] && I18N[currentLang][key]) || I18N.ru[key] || key; }
+function applyLang(){
+  document.documentElement.lang = currentLang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    el.textContent = t(k);
+  });
+  const ph = document.getElementById('searchInput');
+  if(ph) ph.placeholder = t('placeholder');
+}
+
+/* ===== cosmic background ===== */
 const starsLayer = document.getElementById('starsLayer');
 const shootingLayer = document.getElementById('shootingLayer');
 
 (function makeStars(){
   const frag = document.createDocumentFragment();
-  const count = 170;
-  for(let i=0;i<count;i++){
+  for(let i=0;i<130;i++){
     const s = document.createElement('div');
     s.className = 'star';
-    const size = Math.random() * 2.2 + 0.8;
+    const size = Math.random() * 1.6 + 0.6;
     s.style.width = size + 'px';
     s.style.height = size + 'px';
     s.style.top = (Math.random()*100) + '%';
     s.style.left = (Math.random()*100) + '%';
-    s.style.setProperty('--min-op', Math.random()*0.2+0.08);
-    s.style.setProperty('--max-op', Math.random()*0.5+0.5);
-    s.style.animationDuration = (Math.random()*3 + 2) + 's';
+    s.style.setProperty('--min-op', Math.random()*0.15+0.05);
+    s.style.setProperty('--max-op', Math.random()*0.6+0.4);
+    s.style.animationDuration = (Math.random()*3 + 2.5) + 's';
     s.style.animationDelay = (Math.random()*4) + 's';
     frag.appendChild(s);
   }
@@ -1082,20 +821,18 @@ const shootingLayer = document.getElementById('shootingLayer');
 
 (function makeShootingStars(){
   const frag = document.createDocumentFragment();
-  const count = 16;
-  for(let i=0;i<count;i++){
+  for(let i=0;i<10;i++){
     const el = document.createElement('div');
     el.className = 'shooting-star';
-    el.style.top = (Math.random()*30 - 15) + '%';
-    el.style.left = (Math.random()*90) + '%';
-    el.style.animationDuration = (Math.random()*2 + 2.4) + 's';
-    el.style.animationDelay = (Math.random()*7) + 's';
+    el.style.top = (Math.random()*50) + '%';
+    el.style.left = (Math.random()*70) + '%';
+    el.style.animationDuration = (Math.random()*3 + 5) + 's';
+    el.style.animationDelay = (Math.random()*10) + 's';
     frag.appendChild(el);
   }
   shootingLayer.appendChild(frag);
 })();
 
-/* subtle parallax on pointer move */
 const layerBack = document.getElementById('layerBack');
 const layerMid = document.getElementById('layerMid');
 const layerFront = document.getElementById('layerFront');
@@ -1114,7 +851,7 @@ function parallaxLoop(){
 }
 parallaxLoop();
 
-/* ---------- search app ---------- */
+/* ===== data ===== */
 const DATA = [
   { type:'file',   title:'neural_interface_v3.cfg', path:'/config/interface', snippet:'Конфигурация интерфейса, изменено сегодня. Параметры задержки и калибровки сенсоров.' },
   { type:'file',   title:'access_log_0927.dat', path:'/var/log/access', snippet:'Журнал входов в систему. 14 успешных подключений, 0 отклонённых попыток.' },
@@ -1135,13 +872,12 @@ const ICONS = {
   cmd:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6-6-6M12 19h8"/></svg>',
 };
 
-const TYPE_LABEL = { file:'Файл', web:'Веб', person:'Человек', cmd:'Команда' };
 const FILTERS = [
-  { key:'all', label:'Все' },
-  { key:'file', label:'Файлы' },
-  { key:'web', label:'Веб' },
-  { key:'person', label:'Люди' },
-  { key:'cmd', label:'Команды' },
+  { key:'all', label_ru:'Все', label_en:'All' },
+  { key:'file', label_ru:'Файлы', label_en:'Files' },
+  { key:'web', label_ru:'Веб', label_en:'Web' },
+  { key:'person', label_ru:'Люди', label_en:'People' },
+  { key:'cmd', label_ru:'Команды', label_en:'Commands' },
 ];
 
 let activeFilter = 'all';
@@ -1157,7 +893,6 @@ const segmented = $('#segmented');
 const segIndicator = $('#segIndicator');
 const metaRow = $('#metaRow');
 const sweep = $('#sweep');
-const searchIcon = document.querySelector('.icon-search');
 
 function countUp(el, target){
   const start = performance.now();
@@ -1177,7 +912,7 @@ function renderSegmented(){
   FILTERS.forEach(f => {
     const btn = document.createElement('button');
     btn.className = 'seg-item' + (f.key === activeFilter ? ' active' : '');
-    btn.textContent = f.label;
+    btn.textContent = currentLang === 'en' ? f.label_en : f.label_ru;
     btn.dataset.key = f.key;
     btn.addEventListener('click', () => {
       activeFilter = f.key;
@@ -1209,8 +944,8 @@ function renderEmpty(query){
         <div class="orb">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         </div>
-        <div class="t1">Начните вводить запрос</div>
-        <div class="t2">Найдётся всё — файлы, ссылки, люди и команды, в одном месте.</div>
+        <div class="t1">${t('hint_start')}</div>
+        <div class="t2">${t('hint_desc')}</div>
         <div class="hints">
           <div class="hint" data-q="calibration">calibration</div>
           <div class="hint" data-q="protocol">protocol</div>
@@ -1225,8 +960,8 @@ function renderEmpty(query){
     resultsEl.innerHTML = `
       <div class="empty">
         <div class="orb">∅</div>
-        <div class="t1">Ничего не найдено</div>
-        <div class="t2">Ничего не совпадает с «${query}». Попробуйте другой фильтр или запрос.</div>
+        <div class="t1">${t('empty_title')}</div>
+        <div class="t2">${t('empty_desc')} «${query}»${t('empty_try')}</div>
       </div>`;
   }
 }
@@ -1237,7 +972,7 @@ function renderResults(query){
       <div class="icon-chip">${ICONS[r.type]}</div>
       <div class="card-body">
         <div class="card-title">${highlight(r.title, query)}</div>
-        <div class="card-path">${TYPE_LABEL[r.type]} · ${r.path}</div>
+        <div class="card-path">${t(r.type)} · ${r.path}</div>
         <div class="card-snippet">${highlight(r.snippet, query)}</div>
       </div>
     </div>
@@ -1247,13 +982,21 @@ function renderResults(query){
   });
 }
 
+function pluralize(n, one, few, many){
+  const abs = Math.abs(n) % 100;
+  const lastDigit = abs % 10;
+  if(abs > 10 && abs < 20) return many;
+  if(lastDigit > 1 && lastDigit < 5) return few;
+  if(lastDigit === 1) return one;
+  return many;
+}
+
 function runSearch(){
   const query = searchInput.value.trim();
   clearTimeout(debounceTimer);
 
   if(!query){
     sweep.classList.remove('active');
-    searchIcon.classList.remove('scanning');
     metaRow.innerHTML = '';
     selectedIndex = -1;
     currentResults = [];
@@ -1262,8 +1005,7 @@ function runSearch(){
   }
 
   sweep.classList.add('active');
-  searchIcon.classList.add('scanning');
-  metaRow.innerHTML = `<span>поиск...</span>`;
+  metaRow.innerHTML = `<span>${t('search')}</span>`;
 
   debounceTimer = setTimeout(() => {
     const t0 = performance.now();
@@ -1279,9 +1021,15 @@ function runSearch(){
     const ms = Math.max(2, Math.round(performance.now() - t0 + Math.random() * 5));
 
     sweep.classList.remove('active');
-    searchIcon.classList.remove('scanning');
-    metaRow.innerHTML = `<span class="accent" id="metaCount">0</span> результат${filtered.length === 1 ? '' : (filtered.length >= 2 && filtered.length <=4 ? 'а' : 'ов')} · ${ms} мс`;
-    countUp($('#metaCount'), filtered.length);
+
+    const count = filtered.length;
+    let resWord;
+    if(currentLang === 'en'){
+      resWord = count === 1 ? 'result' : 'results';
+    } else {
+      resWord = pluralize(count, t('result_single'), t('result_few'), t('result_many'));
+    }
+    metaRow.innerHTML = `<span class="accent">${count}</span> ${resWord} · ${ms} мс`;
 
     if(filtered.length) renderResults(query);
     else renderEmpty(query);
@@ -1293,7 +1041,6 @@ searchInput.addEventListener('focus', () => searchShell.classList.add('focused')
 searchInput.addEventListener('blur', () => searchShell.classList.remove('focused'));
 
 document.addEventListener('keydown', (e) => {
-  if(modalOverlay.classList.contains('open')) return;
   if(e.key === '/' && document.activeElement !== searchInput){
     e.preventDefault();
     searchInput.focus();
@@ -1320,295 +1067,141 @@ document.addEventListener('keydown', (e) => {
 });
 
 window.addEventListener('resize', moveIndicator);
-renderSegmented();
-renderEmpty('');
 
-/* ---------- settings modal ---------- */
-const modalOverlay = $('#modalOverlay');
+/* ===== settings modal ===== */
+const overlay = $('#modalOverlay');
 const settingsBtn = $('#settingsBtn');
 const modalClose = $('#modalClose');
-const toastEl = $('#toast');
-let toastTimer = null;
 
-function openModal(){ modalOverlay.classList.add('open'); }
-function closeModal(){ modalOverlay.classList.remove('open'); }
-function showToast(msg){
-  toastEl.textContent = msg;
-  toastEl.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
-}
-function hexToRgba(hex, alpha){
-  const c = hex.replace('#','');
-  const full = c.length === 3 ? c.split('').map(x => x + x).join('') : c;
-  const n = parseInt(full, 16);
-  return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${alpha})`;
-}
+settingsBtn.addEventListener('click', () => overlay.classList.add('open'));
+modalClose.addEventListener('click', () => overlay.classList.remove('open'));
+overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('open'); });
 
-settingsBtn.addEventListener('click', openModal);
-modalClose.addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) closeModal(); });
-
-document.querySelectorAll('.modal-tab').forEach(tab => {
+const tabs = document.querySelectorAll('.modal-tab');
+const panes = document.querySelectorAll('.tab-pane');
+tabs.forEach(tab => {
   tab.addEventListener('click', () => {
-    document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+    tabs.forEach(t => t.classList.remove('active'));
+    panes.forEach(p => p.classList.remove('active'));
     tab.classList.add('active');
-    const key = tab.dataset.tab;
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.dataset.pane === key));
+    document.querySelector(`.tab-pane[data-pane="${tab.dataset.tab}"]`).classList.add('active');
   });
 });
 
+/* accent swatches */
 document.querySelectorAll('.swatch').forEach(sw => {
   sw.addEventListener('click', () => {
     document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
     sw.classList.add('active');
-    const root = document.documentElement.style;
-    root.setProperty('--accent', sw.dataset.accent);
-    root.setProperty('--accent-2', sw.dataset.accent2);
-    root.setProperty('--accent-soft', hexToRgba(sw.dataset.accent, .14));
+    document.documentElement.style.setProperty('--accent', sw.dataset.accent);
+    document.documentElement.style.setProperty('--accent-2', sw.dataset.accent2);
+    const a = sw.dataset.accent;
+    const r = parseInt(a.slice(1,3),16), g = parseInt(a.slice(3,5),16), b = parseInt(a.slice(5,7),16);
+    document.documentElement.style.setProperty('--accent-soft', `rgba(${r},${g},${b},.14)`);
+    localStorage.setItem('mono_accent', sw.dataset.accent);
+    localStorage.setItem('mono_accent2', sw.dataset.accent2);
+    showToast(t('saved'));
   });
 });
 
-document.querySelectorAll('.mini-item[data-bgmode]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.mini-item[data-bgmode]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.documentElement.style.setProperty('--bg', btn.dataset.bgmode === 'graphite' ? '#0a0a0c' : '#000000');
+/* theme grid */
+document.querySelectorAll('.theme-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    document.body.className = card.dataset.theme;
+    localStorage.setItem('mono_theme', card.dataset.theme);
+    showToast(t('saved'));
   });
 });
 
-document.querySelectorAll('.toggle').forEach(t => {
-  t.addEventListener('click', () => {
-    t.classList.toggle('on');
-    if(t.dataset.toggle === 'reduced-motion'){
-      document.documentElement.classList.toggle('force-reduced', t.classList.contains('on'));
-    }
+/* ===== language ===== */
+function setLang(lang){
+  currentLang = lang;
+  localStorage.setItem('mono_lang', lang);
+  applyLang();
+  renderSegmented();
+  runSearch();
+}
+
+/* header lang toggle */
+$('#langToggle').addEventListener('click', (e) => {
+  const btn = e.target.closest('.lang-btn');
+  if(!btn) return;
+  $('#langToggle').querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  setLang(btn.dataset.lang);
+});
+
+/* settings lang segment */
+$('#langSegment').addEventListener('click', (e) => {
+  const btn = e.target.closest('.mini-item');
+  if(!btn) return;
+  $('#langSegment').querySelectorAll('.mini-item').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  setLang(btn.dataset.lang);
+  /* sync header toggle */
+  $('#langToggle').querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === btn.dataset.lang);
   });
 });
 
-document.querySelectorAll('.mini-item[data-lang]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.mini-item[data-lang]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    showToast(btn.dataset.lang === 'en' ? 'Language switched to English (demo)' : 'Язык переключён на русский');
-  });
+/* account save */
+$('#saveAccount').addEventListener('click', () => {
+  showToast(t('saved'));
 });
 
-document.querySelectorAll('.provider-btn[data-connect]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const row = btn.closest('.provider-row');
-    const status = row.querySelector('.provider-status');
-    status.textContent = 'Подключено';
-    status.classList.add('connected');
-    btn.textContent = 'Отключить';
-    btn.classList.add('danger');
-    delete btn.dataset.connect;
-    showToast(`${row.querySelector('.provider-name').textContent} подключён`);
-  });
+/* logout */
+$('#logoutBtn').addEventListener('click', () => {
+  showToast(t('logged_out'));
+  overlay.classList.remove('open');
 });
 
-$('#clearHistory').addEventListener('click', () => showToast('История поиска очищена'));
-$('#exportData').addEventListener('click', () => showToast('Экспорт данных подготовлен'));
-
-$('#saveAccount').addEventListener('click', () => showToast('Изменения сохранены'));
-
+/* plan buttons */
 document.querySelectorAll('.plan-btn').forEach(btn => {
-  btn.addEventListener('click', () => showToast(`Демо: переход на план ${btn.dataset.plan}`));
-});
-
-document.addEventListener('keydown', (e) => {
-  if(modalOverlay.classList.contains('open')){
-    if(e.key === 'Escape') closeModal();
-    return;
-  }
-  if((e.metaKey || e.ctrlKey) && e.key === ','){
-    e.preventDefault();
-    openModal();
-  }
-});
-
-/* ---------- week activity chart ---------- */
-(function renderWeekChart(){
-  const el = $('#weekChart');
-  if(!el) return;
-  const days = [
-    { label:'Пн', v:28 }, { label:'Вт', v:52 }, { label:'Ср', v:40 },
-    { label:'Чт', v:76 }, { label:'Пт', v:61 }, { label:'Сб', v:18 }, { label:'Вс', v:9 }
-  ];
-  el.innerHTML = days.map((d, i) => `
-    <div class="week-bar">
-      <div class="week-bar-fill" style="height:${Math.max(6, d.v)}%; animation-delay:${i * 0.05}s"></div>
-      <div class="week-bar-label">${d.label}</div>
-    </div>
-  `).join('');
-})();
-
-/* ---------- integrations grid ---------- */
-const INTEGRATIONS = [
-  { name:'Steam', connected:true,  color:'#1b2838', fg:'#66c0f4',
-    icon:'<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.7 0 .5 4.8 0 11l6.5 2.7a3.4 3.4 0 0 1 1.9-.6l2.9-4.2v-.1a4.6 4.6 0 1 1 4.6 4.6h-.1l-4.1 2.9a3.4 3.4 0 0 1-6.7.8L.3 15.4C1.6 20.3 6.4 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0zM7.3 18.2l-1.5-.6a2.6 2.6 0 0 0 3.4 1.4 2.6 2.6 0 0 0 1.4-3.4 2.6 2.6 0 0 0-3.4-1.4l1.6.7a1.9 1.9 0 1 1-1.5 3.3zm9-8.1a3.1 3.1 0 1 1 0-6.1 3.1 3.1 0 0 1 0 6.1zm0-.8a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6z"/></svg>' },
-  { name:'Amazon', connected:false, color:'#131317', fg:'#ff9900',
-    icon:'<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 14.2c-1.9 1.4-4.6 2.1-6.9 2.1-3.3 0-6.2-1.2-8.5-3.2-.2-.2 0-.4.2-.3 2.4 1.4 5.4 2.3 8.5 2.3 2.1 0 4.4-.4 6.5-1.3.3-.1.6.2.2.4zm.8-1c-.2-.3-1.6-.2-2.3-.1-.2 0-.2-.2-.1-.3 1.1-.8 2.9-.5 3.1-.3.2.3-.1 2.1-1.1 3-.2.1-.3 0-.2-.1.2-.6.7-1.9.6-2.2zM12.3 9.8v-.6c0-1 0-1.9-.7-2.6-.6-.6-1.4-.8-2.2-.8-1.5 0-2.9.8-3.2 2.4 0 .2.1.3.2.3l1.4.1c.2 0 .3-.2.3-.3.1-.6.6-1 1.2-1 .3 0 .7.1.9.4.3.4.2.9.2 1.3v.2c-.9.1-2 .2-2.8.5-1 .4-1.7 1.2-1.7 2.4 0 1.6 1 2.4 2.3 2.4 1.1 0 1.7-.3 2.5-1.1.3.4.4.6.9 1 .1.1.3.1.4 0 .3-.3.9-.8 1.3-1.1.1-.1.1-.3 0-.4-.3-.4-.7-.8-.7-1.6v-.6zm-2 1.6c-.2.4-.6.7-1 .7-.6 0-.9-.4-.9-1.1 0-1.3 1.1-1.5 2.2-1.5v.4c0 .6 0 1.1-.3 1.5z"/></svg>' },
-  { name:'Tinkoff / Sber', connected:true, color:'#131317', fg:'#ffdd2d',
-    icon:'<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="4" width="20" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.4" fill="currentColor"/></svg>' },
-  { name:'Chrome / Edge', connected:true, color:'#131317', fg:'#4285f4',
-    icon:'<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="#131317"/></svg>' },
-  { name:'Telegram', connected:false, color:'#131317', fg:'#2aabee',
-    icon:'<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.7 8.2-2 9.4c-.1.7-.5.8-1 .5l-2.8-2-1.4 1.3c-.1.2-.3.3-.6.3l.2-3.1 5.6-5c.2-.2-.1-.3-.4-.1L8 13.1l-3-1c-.7-.2-.7-.7.1-1l11.7-4.5c.6-.2 1.1.1.9 1z"/></svg>' },
-  { name:'Discord', connected:false, color:'#131317', fg:'#5865f2',
-    icon:'<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.8A19.5 19.5 0 0 0 15.6 3l-.3.6a17 17 0 0 1 4.2 1.6c-2-1-4.4-1.6-7.5-1.6s-5.5.6-7.5 1.6A17 17 0 0 1 8.7 3.6L8.4 3a19.5 19.5 0 0 0-4.7 1.8C1.4 9.1.6 13.3.9 17.5A19.6 19.6 0 0 0 6.7 20l.9-1.4a12 12 0 0 1-2-1l.5-.4a14 14 0 0 0 11.8 0l.5.4a12 12 0 0 1-2 1l.9 1.4a19.6 19.6 0 0 0 5.8-2.5c.4-4.8-.6-9-3.8-12.7zM9 15c-.9 0-1.6-.8-1.6-1.8S8.1 11.4 9 11.4s1.7.8 1.6 1.8c0 1-.7 1.8-1.6 1.8zm6 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.7.8 1.6 1.8c0 1-.7 1.8-1.6 1.8z"/></svg>' },
-  { name:'Spotify', connected:false, color:'#131317', fg:'#1db954',
-    icon:'<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10.5"/><path d="M6.8 15.9c-.2 0-.4 0-.5-.2-.2-.2-.1-.6.2-.7 3-1.8 6.7-2.2 9.9-1.1.3.1.4.4.3.7-.1.3-.4.4-.7.3-3-1-6.4-.6-9.1 1a.5.5 0 0 1-.1.1zm1-2.4c-.2 0-.4-.1-.5-.3-.2-.3-.1-.7.2-.8 3.4-1.9 8.2-2.3 11.6-.4.3.2.4.6.2.9-.2.3-.6.4-.9.2-3-1.6-7.3-1.3-10.3.3l-.3.1zm.1-2.4c-.3 0-.5-.1-.6-.4-.2-.3 0-.8.4-.9 4-1.9 10.1-1.5 13.8.7.4.2.5.6.3 1-.2.3-.6.5-1 .3-3.3-2-9-2.4-12.5-.7h-.4z" fill="#131317"/></svg>' },
-];
-
-function renderIntegrationGrid(){
-  const grid = $('#integrationGrid');
-  if(!grid) return;
-  grid.innerHTML = INTEGRATIONS.map(s => `
-    <div class="integration-card${s.connected ? ' connected' : ''}" data-service="${s.name}">
-      <div class="integration-icon" style="background:${s.color};color:${s.fg}">${s.icon}</div>
-      <div class="integration-info">
-        <div class="integration-name">${s.name}</div>
-        <div class="integration-status${s.connected ? ' connected' : ''}">${s.connected ? 'Подключено' : 'Не подключено'}</div>
-      </div>
-      <div class="integration-dot"></div>
-    </div>
-  `).join('');
-
-  grid.querySelectorAll('.integration-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const name = card.dataset.service;
-      const svc = INTEGRATIONS.find(s => s.name === name);
-      svc.connected = !svc.connected;
-      renderIntegrationGrid();
-      showToast(svc.connected ? `${name} подключён` : `${name} отключён`);
-    });
-  });
-}
-renderIntegrationGrid();
-
-/* ---------- recent activity widget ---------- */
-const activityLogEl = $('#activityLog');
-const activityWidgetEl = $('#activityWidget');
-const activityDotEl = $('#activityDot');
-const activityCollapseEl = $('#activityCollapse');
-
-function timeNow(){
-  const d = new Date();
-  return d.toLocaleTimeString('ru-RU', { hour:'2-digit', minute:'2-digit' });
-}
-function addActivityItem(text, accent){
-  if(!activityLogEl) return;
-  const item = document.createElement('div');
-  item.className = 'activity-item';
-  item.innerHTML = `<span class="t">${timeNow()}</span><span class="${accent ? 'a' : ''}">${text}</span>`;
-  activityLogEl.prepend(item);
-  while(activityLogEl.children.length > 8) activityLogEl.removeChild(activityLogEl.lastChild);
-}
-
-const INITIAL_ACTIVITY = [
-  'Синхронизировал 12 игр из Steam',
-  'Обновил каталог заказов Amazon',
-  'Проиндексировал плейлисты Spotify',
-  'Индекс обновлён · 214 объектов'
-];
-INITIAL_ACTIVITY.forEach(t => addActivityItem(t));
-
-if(activityCollapseEl){
-  activityCollapseEl.addEventListener('click', () => {
-    activityWidgetEl.classList.add('hidden');
-    activityDotEl.classList.add('show');
-  });
-}
-if(activityDotEl){
-  activityDotEl.addEventListener('click', () => {
-    activityWidgetEl.classList.remove('hidden');
-    activityDotEl.classList.remove('show');
-  });
-}
-
-/* ---------- AI Auto-Integrate scan ---------- */
-const aiIntegrateBtn = $('#aiIntegrateBtn');
-const aiIntegrateLabel = $('#aiIntegrateLabel');
-const scanLogEl = $('#scanLog');
-
-const SCAN_STEPS = [
-  { text: 'Инициализация модуля сканирования…' },
-  { text: 'Проверка Steam: библиотека игр…', activity: 'Синхронизировал 12 игр из Steam' },
-  { text: 'Проверка Tinkoff / Sber: категории трат…', activity: 'Проанализировал траты в банке' },
-  { text: 'Проверка Chrome / Edge: закладки и вкладки…', activity: 'Импортировал закладки из браузера' },
-  { text: 'Проверка Telegram: непрочитанные чаты…', activity: 'Просканировал Telegram: 3 непрочитанных чата' },
-  { text: 'Сборка единого индекса…' },
-  { text: 'Готово — 4 сервиса синхронизированы', done:true },
-];
-
-if(aiIntegrateBtn){
-  aiIntegrateBtn.addEventListener('click', () => {
-    if(aiIntegrateBtn.classList.contains('scanning')) return;
-    aiIntegrateBtn.classList.add('scanning');
-    aiIntegrateLabel.textContent = 'Сканирование…';
-    scanLogEl.classList.add('open');
-    scanLogEl.innerHTML = '';
-
-    SCAN_STEPS.forEach((step, i) => {
-      setTimeout(() => {
-        const line = document.createElement('div');
-        line.textContent = `› ${step.text}`;
-        line.style.animationDelay = '0s';
-        scanLogEl.appendChild(line);
-        scanLogEl.scrollTop = scanLogEl.scrollHeight;
-        if(step.activity) addActivityItem(step.activity, true);
-
-        if(step.done){
-          INTEGRATIONS.forEach(s => { if(!s.connected) s.connected = true; });
-          renderIntegrationGrid();
-          aiIntegrateBtn.classList.remove('scanning');
-          aiIntegrateLabel.textContent = 'AI Auto-Integrate';
-          showToast('Автоинтеграция завершена');
-          setTimeout(() => scanLogEl.classList.remove('open'), 2600);
-        }
-      }, i * 650);
-    });
-  });
-}
-
-/* ---------- billing history ---------- */
-(function renderBilling(){
-  const rows = []; // demo: no transactions yet on the Free plan
-  const body = $('#billingBody');
-  const table = $('#billingTable');
-  const empty = $('#billingEmpty');
-  if(!body) return;
-  if(!rows.length){
-    table.style.display = 'none';
-    empty.style.display = 'flex';
-    return;
-  }
-  table.style.display = '';
-  empty.style.display = 'none';
-  body.innerHTML = rows.map(r => `
-    <tr><td>${r.date}</td><td>${r.desc}</td><td>${r.amount}</td><td><span class="billing-status">${r.status}</span></td></tr>
-  `).join('');
-})();
-
-/* ---------- login gate ---------- */
-const loginGate = $('#loginGate');
-const googleBtn = $('#googleBtn');
-googleBtn.addEventListener('click', () => {
-  googleBtn.classList.add('loading');
-  setTimeout(() => {
-    loginGate.classList.add('hidden');
-  }, 1300);
-});
-
-document.querySelectorAll('.oauth-btn[data-provider]').forEach(btn => {
   btn.addEventListener('click', () => {
-    btn.classList.add('loading');
-    setTimeout(() => {
-      loginGate.classList.add('hidden');
-    }, 1100);
+    showToast(`${t('switched_plan')} ${btn.dataset.plan}`);
   });
 });
+
+/* toast */
+let toastTimer;
+function showToast(msg){
+  const el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+/* ===== restore saved settings ===== */
+(function restoreSettings(){
+  const savedAccent = localStorage.getItem('mono_accent');
+  const savedAccent2 = localStorage.getItem('mono_accent2');
+  if(savedAccent){
+    document.documentElement.style.setProperty('--accent', savedAccent);
+    if(savedAccent2) document.documentElement.style.setProperty('--accent-2', savedAccent2);
+    document.querySelectorAll('.swatch').forEach(s => {
+      s.classList.toggle('active', s.dataset.accent === savedAccent);
+    });
+  }
+  const savedTheme = localStorage.getItem('mono_theme') || '';
+  document.body.className = savedTheme;
+  document.querySelectorAll('.theme-card').forEach(c => {
+    c.classList.toggle('active', c.dataset.theme === savedTheme);
+  });
+  /* restore lang */
+  applyLang();
+  renderSegmented();
+  renderEmpty('');
+  /* sync lang UI */
+  $('#langToggle').querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === currentLang);
+  });
+  $('#langSegment').querySelectorAll('.mini-item').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === currentLang);
+  });
+})();
 </script>
 </body>
 </html>

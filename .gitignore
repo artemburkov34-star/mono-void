@@ -1,0 +1,13 @@
+.env
+__pycache__/
+*.pyc
+mono_vault.db
+mono_vault.db-journal
+.venv/
+venv/
+dist/
+build/
+*.spec
+.pyarmor_*/
+node_modules/
+
